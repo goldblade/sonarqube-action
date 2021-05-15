@@ -26,12 +26,18 @@ if [[ ! -f "${GITHUB_WORKSPACE}/sonar-project.properties" ]]; then
     -Dsonar.projectBaseDir=${INPUT_PROJECTBASEDIR} \
     -Dsonar.login=${INPUT_LOGIN} \
     -Dsonar.password=${SONAR_PASSWORD} \
-    -Dsonar.sources=. \
+    -Dsonar.sources=app,config,db,lib \
+    -Dsonar.exclusions=app/assets/**/* \
+    -Dsonar.ruby.coverage.reportPaths=coverage/.resultset.json \
     -Dsonar.sourceEncoding=UTF-8
 else
   sonar-scanner \
     -Dsonar.host.url=${INPUT_HOST} \
     -Dsonar.projectBaseDir=${INPUT_PROJECTBASEDIR} \
     -Dsonar.login=${INPUT_LOGIN} \
+    -Dsonar.sources=app,config,db,lib \
+    -Dsonar.exclusions=app/assets/**/* \
+    -Dsonar.ruby.coverage.reportPaths=coverage/.resultset.json \
+    -Dsonar.projectKey=${SONAR_PROJECTKEY} \
     -Dsonar.password=${SONAR_PASSWORD}
 fi
